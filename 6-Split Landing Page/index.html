@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      .container {
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+      }
+      .container div {
+        padding: 0 25px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        /* border: 2px solid black; */
+        background-repeat: no-repeat;
+        background-position: center;
+        gap: 25px;
+        transition: width ease 400ms;
+        background-size: cover;
+      }
+      .ps5 {
+        position: relative;
+        background-image: url("./ps5.png");
+        width: 50%;
+      }
+      .xbox {
+        position: relative;
+        background-image: url("./xbox.jpg");
+        width: 50%;
+      }
+      .ps5::after{
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: #0070d1;
+        opacity: .5;
+        z-index: 1;
+      }
+      .xbox::after{
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: darkslategrey;
+        opacity: .5;
+        z-index: 1;
+      }
+      .active {
+        width: 100%;
+      }
+      h1 {
+        color: white;
+        font-size: 3.5rem;
+        font-weight: bold;
+        letter-spacing: 1.25px;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif;
+          position: relative;
+          z-index: 2;
+        }
+        button {
+          all: unset;
+        font-weight: bold;
+        color: white;
+        padding: 20px 60px;
+        text-transform: uppercase;
+        border: 3px solid white;
+        letter-spacing: 2px;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+        sans-serif;
+        transition: background-color 300ms;
+        position: relative;
+        z-index: 2;
+      }
+      .ps5 button:hover {
+        background-color: #0070d1;
+      }
+      .xbox button:hover {
+        background-color: #107c10;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="ps5">
+        <h1>Playstation 5</h1>
+        <button>Buy Now</button>
+      </div>
+      <div class="xbox">
+
+        <h1>Xbox Series x</h1>
+        <button>Buy Now</button>
+      </div>
+    </div>
+
+    <script>
+      const container = document.querySelector(".container");
+
+      container.addEventListener("mousemove", (event) => {
+        let element = event.target;
+        if (element.nodeName == "H1" || element.nodeName == "BUTTON") {
+          element = element.parentElement;
+        }
+
+        if (element.className == "ps5") {
+          element.nextElementSibling.classList.remove("active");
+          element.classList.add("active");
+        }
+        if (element.className == "xbox") {
+          element.previousElementSibling.classList.remove("active");
+          element.classList.add("active");
+        }
+
+        // console.log('hello')
+      });
+
+      window.addEventListener("mouseout", (event) => {
+        const boxes = container.children;
+        for (const box of boxes) {
+          box.classList.remove('active')
+        }
+      });
+
+      
+    </script>
+  </body>
+</html>

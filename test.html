@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <h1>hello</h1>
+
+    <script>
+      const user = {
+        profile: {
+          name: "Ishu",
+
+        },
+        getProfile: () => {
+            console.log('this is profile')
+        }
+      };
+
+      console.log(user.profile.name); // ✅ works
+      const test = user.contact?.phone
+      console.log(test); // ❌ crashes! "Cannot read property 'phone' of undefined"
+      
+      if(test == undefined){
+        console.log('ran')
+      }
+      const getNameValue = user.getName?.() //did n't throw error evaluated to undefined
+      console.log(getNameValue)
+
+      user.getProfile()
+
+      console.log(user.profile.age)
+</script>
+  </body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>search icon</title>
+
+    <style>
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            
+        }
+        .container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: lightsalmon;
+            overflow: hidden auto;
+            height: 100vh;
+            width: 100vw;
+        }
+        .search-container{
+            display: flex;
+            justify-content: center;
+            width: 300px;
+        }
+         img{
+            width: 50px;
+            height: 100%;
+            padding: 5px;
+            background-color: white;
+            &:hover{
+                cursor: pointer;
+            }
+        }
+        input:focus{
+            outline: none;
+        }
+        input{
+            border: none;
+            padding: 0;
+            width: 0px;
+            transition: all ease 300ms;
+        }
+        .search.active{
+            width: 100%;
+            padding: 14px 18px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="search-container">
+            <input class="search" type="text" placeholder="Search...">
+            <img class="icon" src="search.svg" alt="">
+        </div>
+    </div>
+    
+    <script>
+        const icon = document.querySelector('.icon');
+        const search = document.querySelector('.search')
+       icon.addEventListener('click',()=>{
+            search.classList.toggle('active')
+            // icon.classList.toggle('active')
+        })
+    </script>
+</body>
+</html>

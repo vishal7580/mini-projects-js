@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            overflow-x: hidden;
+        }
+        .container{
+            height: 500vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 10px;
+        }
+        .box{
+            text-align: center;
+            padding: 25px;
+            border: 2px solid coral;
+            border-radius: 10px;
+            background-color: aqua;
+            width: 200px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="box box1">Box 1</div>
+        <div class="box box2">Box 2</div>
+        <div class="box box3">Box 3</div>
+    </div>
+
+    <script>
+        
+        
+        let boxPassed = []
+        function scrollAnimate(){
+            const container = document.querySelector('.container')
+            const boxes = document.querySelectorAll('.box')
+            
+            boxes.forEach((box,i) => {
+                const boxRec = box.getBoundingClientRect()
+                if(!boxPassed.includes(i+4) && boxRec.y <= -100){
+                    boxPassed.push(i+4)
+                    container.append(addBox(boxes.length+1))
+                    document.body.append(container)
+                    console.log(boxPassed)
+                }
+                if(boxRec.y >= 0 && boxPassed.includes(i+4)){
+                    const index = boxPassed.indexOf(i+4)
+                    if(index !== -1){
+                       removeBox(index)
+                       console.log(boxPassed)
+                    }
+                }
+            })
+        }
+        function addBox(nextNum){
+            
+            console.log(nextNum)
+            const box = document.createElement('div')
+            box.classList.add(`box`)
+            box.classList.add(`box${nextNum}`)
+            box.innerText = `Box ${nextNum}`
+            
+            return box;
+        }
+        function removeBox(index){
+            boxPassed.splice(index, 1);
+            const container = document.querySelector('.container')
+            container.lastElementChild.remove()
+        }
+        
+        document.addEventListener('scroll',scrollAnimate)
+    </script>
+</body>
+</html>

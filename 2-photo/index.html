@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .wrapper {
+        height: 100vh;
+        overflow-y: auto;
+        overflow-x: hidden;
+        width: 100vw;
+        position: relative;
+      }
+      .main-container {
+        height: 125%;
+        width: 100%;
+        background-color: white;
+        position: absolute;
+        z-index: 10;
+        transition: all ease 300ms;
+        transform-origin: 0% 0%;
+        /* transform: rotate(-20deg); */
+      }
+      .backlayer {
+        background-color: black;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        z-index: -20;
+      }
+      .details-container {
+        margin: 0 auto;
+        max-width: 1000px;
+        margin-top: 100px;
+        display: flex;
+        flex-direction: column;
+      }
+      .dog-img {
+        width: 25%;
+      }
+      .text {
+        margin-top: 30px;
+        margin-bottom: 20px;
+      }
+      .sidebar {
+        background-color: orangered;
+        width: 300px;
+        height: 300px;
+        position: absolute;
+        top: -150px;
+        left: -150px;
+        border-radius: 100%;
+        z-index: 30;
+        transition: all ease 300ms;
+      }
+      /* ACTIVE CLASSED */
+      .active.sidebar {
+        transform: rotate(-90deg);
+      }
+      .active.main-container {
+        transform: rotate(-20deg);
+      }
+      /***********************/
+      .menu,
+      .close {
+        position: absolute;
+        cursor: pointer;
+      }
+      .menu {
+        right: 70px;
+        top: 185px;
+      }
+      .close {
+        bottom: 70px;
+        left: 70px;
+      }
+      .links-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        position: absolute;
+        left: 25px;
+        bottom: 100px;
+      }
+
+      .link {
+        display: flex;
+        align-items: flex-end;
+        gap: 15px;
+        transition: all ease 300ms;
+        img {
+          width: 30px;
+        }
+        p {
+          color: white;
+          font-size: 1.35rem;
+          text-transform: uppercase;
+        }
+      }
+      .link:nth-of-type(1).active {
+        transform: translate(20px);
+      }
+      .link:nth-of-type(2).active {
+        transform: translate(40px);
+      }
+      .link:nth-of-type(3).active {
+        transform: translate(60px);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="sidebar">
+        <img class="menu" src="menu-2.svg" alt="" />
+        <img class="close" src="close.svg" alt="" />
+      </div>
+
+      <div class="main-container">
+        <div class="details-container">
+          <h1>Amazing Article</h1>
+          <p class="author">Florence Pop</p>
+          <p class="text">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Error
+            accusantium quas sunt quia atque, voluptatibus fuga maxime quos
+            dolores totam ratione aliquam facilis explicabo alias aut beatae
+            reiciendis aspernatur dignissimos. Dolore iure repudiandae, dolor
+            odit veniam est doloribus culpa magni odio amet et fugiat ab eum
+            laudantium deleniti delectus commodi officia assumenda? Fugiat
+            delectus odit numquam minus quod pariatur voluptas?
+          </p>
+
+          <div class="bottom-text">My Dog</div>
+
+          <div>
+            <img
+              class="dog-img"
+              src="https://plus.unsplash.com/premium_photo-1666777247416-ee7a95235559?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt="dog image"
+            />
+          </div>
+
+          <p class="text">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Error
+            accusantium quas sunt quia atque, voluptatibus fuga maxime quos
+            dolores totam ratione aliquam facilis explicabo alias aut beatae
+            reiciendis aspernatur dignissimos. Dolore iure repudiandae, dolor
+            odit veniam est doloribus culpa magni odio amet et fugiat ab eum
+            laudantium deleniti delectus commodi officia assumenda? Fugiat
+            delectus odit numquam minus quod pariatur voluptas?
+          </p>
+        </div>
+      </div>
+
+      <div class="backlayer">
+        <div class="links-container">
+          <div class="link">
+            <img src="assets/home.svg" alt="" />
+            <p>Home</p>
+          </div>
+          <div class="link">
+            <img src="assets/person.svg" alt="" />
+            <p>about</p>
+          </div>
+          <div class="link">
+            <img src="assets/mail.svg" alt="" />
+            <p>contact</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const sidebar = document.querySelector(".sidebar");
+      const menuBtn = document.querySelector(".menu");
+      const closeBtn = document.querySelector(".close");
+      const mainDisplay = document.querySelector(".main-container");
+
+      const links = document.querySelectorAll(".link");
+
+      menuBtn.addEventListener("click", () => {
+        sidebar.classList.add("active");
+        mainDisplay.classList.add("active");
+        links.forEach((link) => link.classList.add("active"));
+      });
+      closeBtn.addEventListener("click", () => {
+        sidebar.classList.remove("active");
+        mainDisplay.classList.remove("active");
+        links.forEach((link) => link.classList.remove("active"));
+      });
+    </script>
+  </body>
+</html>

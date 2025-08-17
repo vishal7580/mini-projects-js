@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .container {
+        --blurStrength: 20px;
+
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: url("./wheeler.jpg");
+        background-size: cover;
+        background-position: center;
+        filter: blur(var(--blurStrength));
+        overflow: hidden;
+      }
+      p {
+        position: absolute;
+        font-size: 2.5rem;
+        color: white;
+        font-weight: bold;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        z-index: 10;
+      }
+      body {
+        position: relative;
+      }
+    </style>
+  </head>
+  <body>
+    <p></p>
+    <div class="container"></div>
+
+    <script>
+      const container = document.querySelector(".container");
+      const para = document.querySelector("p");
+      const containerCss = window.getComputedStyle(container);
+      const blurValue = containerCss.getPropertyValue("--blurStrength");
+
+      function init() {
+        let count = 1;
+        let blurStrength = Number(blurValue.replace("px", ""));
+
+        const intervalId = setInterval(() => {
+          console.log("set Interval");
+          if (blurStrength == -1){
+            clearInterval(intervalId)        
+          }
+          else {
+            if (count <= 100) {
+                para.innerText = `${count}%`;
+                para.style.opacity = mapCountToSupper(count)
+            }
+            if (count % 5 == 0) {
+              container.style.setProperty(
+                "--blurStrength",
+                `${blurStrength}px`
+              );
+              // console.log(count,blurStrength)
+              blurStrength--;
+            }
+            count++;
+          }
+        }, 25);
+
+        console.log("clearInterval: ");
+      }
+      function mapCountToSupper(count) {
+  return ((count - 1) / (100 - 1)) * (0 - 1) + 1;
+}
+
+      init();
+    </script>
+  </body>
+</html>

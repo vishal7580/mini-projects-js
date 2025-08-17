@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: purple;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container{
+            display: flex;
+            gap: 25px;
+        }
+        button{
+            background-color: bisque;
+            font-weight: 600;
+            font-size: 25px;
+            padding: 20px 40px;
+            border-radius: 10px;
+            text-transform: capitalize;
+            &:hover{
+                cursor: pointer;
+            }
+            &:active{
+                transform: scale(.95);
+            }
+        }
+        audio{
+            border: 2px solid black;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container"> 
+        <button> bison</button>
+        <button>cobra</button>
+        <button>elephant</button>
+        <button>gorilla</button>
+        <button>leopard</button>
+    </div>
+    
+    <script>
+        
+        const btns = document.querySelectorAll('button')
+        const animalSounds = []
+
+        btns.forEach((button,i)=> {
+            const soundName = button.innerText.toLowerCase()
+            animalSounds.push(new Audio(`./sounds/${soundName}.mp3`))
+
+            // all sounds will be available by the time you click on any button cause given code is async ,events are (async) but callback is (sync) code
+
+            //each given button gets its own ith reference for later execution
+
+            //Q what if i use let i = 0; outside forEach instead of (button,i)??????????????
+
+            button.addEventListener('click',()=>{
+                console.log('event ',i)
+                if(animalSounds[i].paused) {
+                    pauseAll()
+                    animalSounds[i].play()
+                }
+                else {
+                    animalSounds[i].pause()
+                }
+            })
+            
+        })
+        function pauseAll(){
+            animalSounds.forEach(sound=> {
+                sound.pause()
+                sound.currentTime = 0
+            })
+        }
+
+    </script>
+</body>
+</html>
+

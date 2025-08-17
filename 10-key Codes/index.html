@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>key code</title>
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            background-color: antiquewhite;
+        }
+        .container{
+            display: flex;
+            gap: 10px;
+        }
+        .box-container{
+            text-align: center;
+            display: none;
+        }
+        .box{
+            background-color: white;
+            padding: 15px 45px;
+            border: 1px solid grey;
+            /* text-align: center; */
+
+        }
+        .press-any{
+            background-color: white;
+            padding: 10px 35px;
+            border: 1px solid grey;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="press-any">press any key to get the keyCode</div> 
+        <!-- hide pressany on first click -->
+        <div class="box-container">
+            <p>event.key</p>
+            <div class="box" id="eventKey">
+                tab
+            </div>
+        </div>
+        <div class="box-container">
+            <p>event.keyCode</p>
+            <div class="box" id="eventKeyCode">
+                9
+            </div>
+        </div>
+        <div class="box-container">
+            <p>event.location</p>
+            <div class="box" id="eventLocation">
+                tab
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const body = document.querySelector('body')
+        body.addEventListener('keydown',(event)=> {
+            document.querySelector('.press-any').style.display = 'none'
+            document.querySelectorAll('.box-container').forEach(box => {
+                box.style.display = 'block'
+            })
+            document.querySelector('#eventKey').innerText = event.key
+            document.querySelector('#eventKeyCode').innerText = event.code
+            document.querySelector('#eventLocation').innerText = event.location
+
+        })
+
+    </script>
+</body>
+</html>

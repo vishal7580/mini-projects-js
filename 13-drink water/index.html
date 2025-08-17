@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Box Layout</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #f0f0f0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Large box */
+.large-box {
+  height: 300px;
+  width: 100px;
+  border: 2px solid #333;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.filled,.not-filled{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+.filled{
+    background-color: deepskyblue;
+    color: white;
+    display: none;
+}
+
+.not-filled{
+    color: deepskyblue;
+    background-color: white;
+    height: 100%;
+}
+
+/* Small boxes wrapper */
+.small-boxes {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  gap: 15px;
+}
+
+
+/* Small box styling — 75% smaller height */
+.small-box {
+  height: 75px; /* 600px ka 25% */
+  width: 40px;  /* width proportionally smaller than large box */
+  background-color: white;
+  border: 2px solid #333;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: deepskyblue;
+}
+.small-box.fill{
+    color: white;
+    background-color: deepskyblue;
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Large box -->
+    <div class="large-box">
+        <div class="not-filled">2L</div>
+        <div class="filled">filled</div>
+    </div>
+
+    <!-- Small boxes container -->
+    <div class="small-boxes">
+      <div class="small-box">250ml</div>
+      <div class="small-box">250ml</div>
+      <div class="small-box">250ml</div>
+      <div class="small-box">250ml</div>
+      <div class="small-box">250ml</div>
+      <div class="small-box">250ml</div>
+      <div class="small-box">250ml</div>
+      <div class="small-box">250ml</div>
+
+    </div>
+    <button>empty</button>
+  </div>
+
+  <script>
+    let glasses = document.querySelectorAll('.small-box')
+    let glassContainer = document.querySelector('.small-boxes')
+    let filledPortion = document.querySelector('.filled')
+    let NotfilledPortion = document.querySelector('.not-filled')
+    let filledGlasses = 0
+
+    glassContainer.addEventListener('click',(e)=>{
+        if(e.target != glassContainer){
+            const clicked = e.target
+            
+           const clickedIndex = fillGlass(clicked)
+            emptyGlass(clickedIndex)
+            fillLarge()
+            
+        }
+    })
+    function fillLarge(){
+        if(filledGlasses === 0){
+            filledPortion.style.display = 'none'
+            filledPortion.style.height = `0%`
+            NotfilledPortion.style.height = '100%'
+            return
+        }
+        console.log(NotfilledPortion.style.textContent)
+        NotfilledPortion.style.textContent = `${0.25* filledGlasses}`;
+        NotfilledPortion.style.height = `${100 - 12.5 * filledGlasses}%`
+
+        filledPortion.style.display = 'flex'
+        filledPortion.style.height = `${12.5 * filledGlasses}%`
+    }
+    function emptyGlass(clickedIndex){
+        let i = clickedIndex+1
+        while(i < glasses.length){
+            glasses[i].classList.remove('fill')
+            i++
+        }
+    }
+    function fillGlass(clicked){
+        let i = 0;
+        while(glasses[i] !== clicked){
+            glasses[i].classList.add('fill')
+            i++
+        }
+        if(glasses[i] === clicked){
+            glasses[i].classList.add('fill')
+        }
+        filledGlasses = i + 1
+        return i;
+    }
+    document.querySelector('button')
+    .addEventListener('click',()=>{
+        emptyGlass(-1)
+        filledGlasses = 0
+        fillLarge()
+    })
+  </script>
+</body>
+</html>
