@@ -14,7 +14,7 @@ These mini-projects are ideal for beginners who want to strengthen their JavaScr
 ### 🚀 How to run
 1. Clone or download the repository
 2. Open the project folder you want to try
-3. Open the `index.html` file in your browser
+3. try to implement any project you like
 
 ---
 
